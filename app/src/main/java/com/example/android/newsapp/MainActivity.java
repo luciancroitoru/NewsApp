@@ -25,12 +25,12 @@ public class MainActivity extends AppCompatActivity
     public static final String LOG_TAG = MainActivity.class.getName();
 
     /**
-     * URL for earthquake data from the guardianapis dataset
+     * URL for news data from the guardianapis dataset
      */
-    private static final String mUrl = "https://content.guardianapis.com/search?q=debate&tag=politics/politics&from-date=2014-01-01&api-key=test";
+    private static final String myUrl = "http://content.guardianapis.com/search?api-key=test&q=business";
 
     /**
-     * Constant value for the book loader ID. We can choose any integer.
+     * Constant value for the news loader ID. We can choose any integer.
      * This really only comes into play if you're using multiple loaders.
      */
     private static final int NEWS_LOADER_ID = 1;
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity
     public Loader<List<News>> onCreateLoader(int i, Bundle bundle) {
         Log.i(LOG_TAG, "TEST: onCreateLoader() called...");
         // Create a new loader for the given URL
-        return new NewsLoader(this, mUrl);
+        return new NewsLoader(this, myUrl);
     }
 
     @Override

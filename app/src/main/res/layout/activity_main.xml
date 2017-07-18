@@ -8,9 +8,14 @@
     android:padding="@dimen/add_padding"
     tools:context="com.example.android.newsapp.MainActivity">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/add_padding"
+        android:background="@color/news_background">
     <TextView
         android:id="@+id/news_title"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/add_padding_bottom"
         android:text="@string/news_title"
@@ -19,7 +24,7 @@
 
     <TextView
         android:id="@+id/section_name"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/news_title"
         android:paddingBottom="@dimen/add_padding_bottom"
@@ -34,4 +39,5 @@
         android:layout_below="@id/section_name"
         android:text="@string/news_date"
         android:textAppearance="?android:textAppearanceSmall" />
+    </RelativeLayout>
 </RelativeLayout>

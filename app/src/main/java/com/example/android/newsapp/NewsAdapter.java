@@ -63,6 +63,9 @@ public class NewsAdapter extends ArrayAdapter<News> {
         String sectionName = currentNews.getSectionName();
         String date = currentNews.getDate();
 
+        String finalDate = date.replaceAll("T", " at ");
+        finalDate = finalDate.replaceAll("Z", " ");
+
         TextView newsTitleView = (TextView) listItemView.findViewById(R.id.news_title);
         newsTitleView.setText(newsTitle);
 
@@ -70,7 +73,7 @@ public class NewsAdapter extends ArrayAdapter<News> {
         sectionNameView.setText(sectionName);
 
         TextView publisherView = (TextView) listItemView.findViewById(R.id.news_date);
-        publisherView.setText(date);
+        publisherView.setText(finalDate);
 
         // Return the list item view that is now showing the appropriate data
         return listItemView;

@@ -60,46 +60,42 @@ public final class QueryUtils {
             JSONObject baseJsonResponse = new JSONObject(newsJSON);
 
             if (baseJsonResponse.has("response")) {
-                // Extract the JSONArray associated with the key called "response",
-                // which represents a list of news items.
-                JSONArray newsArray = baseJsonResponse.getJSONArray("response");
+                // Extract the JSONObject associated with the key called "response",
+                JSONObject response = baseJsonResponse.getJSONObject("response");
 
+                if (response.has("results")) {
+                    JSONArray results = response.getJSONArray("results");
 
-                // For each news in the newsArray, create an {@link News} object
-                for (int i = 0; i < newsArray.length(); i++) {
+                    // For each news in the newsArray, create an {@link News} object
+                    for (int i = 0; i < results.length(); i++) {
 
-                    // Get a single piece of news at position i within the list of news
-                    JSONObject currentNews = newsArray.getJSONObject(i);
+                        // Get a single piece of news at position i within the list of news
+                        JSONObject result = results.getJSONObject(i);
 
-                    // For a given piece of news, extract the JSONObject associated with the
-                    // key called "results", which represents a list of all news information
-                    // for that piece of news.
-                    JSONObject results = currentNews.getJSONObject("results");
+                        // Extract the value for the key called "webTitle"
+                        String title = result.getString("webTitle");
 
-                    // Extract the value for the key called "webTitle"
-                    String title = results.getString("webTitle");
+                        // Extract the value for the key called "sectionName"
+                        String sectionName = result.getString("sectionName");
 
-                    // Extract the value for the key called "sectionName"
-                    String sectionName = results.getString("sectionName");
+                        if (result.has("webPublicationDate")) {
+                            // Extract the value for the key called "webPublicationDate"
+                            date = result.getString("webPublicationDate");
+                        } else {
+                            // Publishing date placeholder text(e.g. "Publication date N/A")
+                            date = "Publication date date N/A";
+                        }
 
+                        // Extract the value for the key called "webUrl"
+                        String webUrl = result.getString("webUrl");
 
-                    if (results.has("webPublicationDate")) {
-                        // Extract the value for the key called "webPublicationDate"
-                        date = results.getString("webPublicationDate");
-                    } else {
-                        // Publishing date placeholder text(e.g. "Publication date N/A")
-                        date = "Publication date date N/A";
+                        // Create a new {@link news} object with the title, sectionName, date, webUrl
+                        // and infoLink from the JSON response.
+                        News pieceOfNews = new News(title, sectionName, date, webUrl);
+
+                        // Add the new {@link News} to the list of news.
+                        news.add(pieceOfNews);
                     }
-
-                    // Extract the value for the key called "webUrl"
-                    String webUrl = results.getString("webUrl");
-
-                    // Create a new {@link news} object with the title, sectionName, date, webUrl
-                    // and infoLink from the JSON response.
-                    News pieceOfNews = new News(title, sectionName, date, webUrl);
-
-                    // Add the new {@link News} to the list of news.
-                    news.add(pieceOfNews);
                 }
             }
 
